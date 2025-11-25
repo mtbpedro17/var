@@ -18,7 +18,7 @@ export default function Home() {
 </div>
 
    <Link href={"/adm/dashboard"} className=" text-2xl backdrop-blur-xl bg-white/10 py-3 px-5 font-bold text-white rounded-lg border animate-pulse">Entrar</Link>
-
+        
     
     </div>
   );

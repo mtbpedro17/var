@@ -4,6 +4,18 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 
+import {
+    Home,
+    FilePlus,
+    ClipboardList,
+    CreditCard,
+    FileText,
+    Settings,
+    LogOut,
+    Menu,
+    X
+} from "lucide-react"
+
 export default function Sidebar({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -11,7 +23,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     const isActive = (path: string) =>
         pathname === path
             ? "bg-white/20 border-l-4 border-[#12111e] text-white"
-            : "text-[#f1f7fc] tran hover:bg-white/5"
+            : "text-[#f1f7fc] hover:bg-white/5"
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen)
@@ -20,6 +32,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     return (
         <div className="flex flex-col lg:grid lg:grid-cols-12 h-screen w-screen bg-[#12111e]">
             
+            {/* Top bar mobile */}
             <div className="lg:hidden bg-[#27283d] p-4 flex items-center justify-between fixed top-0 left-0 right-0 z-50">
                 <div className="flex items-center gap-2">
                     <div className="py-3 px-3 rounded-full bg-[#12111e]"></div>
@@ -29,11 +42,11 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                     onClick={toggleSidebar}
                     className="text-white p-2 rounded-lg hover:bg-white/10 transition-all"
                 >
-                    {isSidebarOpen ? "✕" : "☰"}
+                    {isSidebarOpen ? <X /> : <Menu />}
                 </button>
             </div>
 
-           
+            {/* Sidebar */}
             <div className={`
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
                 lg:translate-x-0
@@ -49,29 +62,31 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                 z-40 lg:z-auto
             `}>
                 
+                {/* Close button mobile */}
                 <div className="lg:hidden flex justify-end p-4 pt-20">
                     <button
                         onClick={toggleSidebar}
                         className="text-white p-2 rounded-lg hover:bg-white/10 transition-all"
                     >
-                        ✕
+                        <X />
                     </button>
                 </div>
 
-                
+                {/* Logo desktop */}
                 <div className="hidden lg:flex items-center my-8 mx-4 gap-2">
                     <div className="py-5 px-5 rounded-full bg-[#12111e]"></div>
                     <p className="font-bold text-2xl xl:text-3xl">Kituxi Group</p>
                 </div>
 
-               
+                {/* Links */}
                 <div className="flex-1 px-4 lg:px-0 mt-4 lg:mt-0">
+                    
                     <Link
                         href="/adm/dashboard"
                         onClick={() => setIsSidebarOpen(false)}
                         className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/dashboard")}`}
                     >
-                        <span className="text-xl">🏠</span>
+                        <Home className="w-5 h-5" />
                         <p className="text-base lg:text-lg xl:text-lg">Dashboard</p>
                     </Link>
 
@@ -80,7 +95,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         onClick={() => setIsSidebarOpen(false)}
                         className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/cadastrar_empresa")}`}
                     >
-                        <span className="text-xl">📝</span>
+                        <FilePlus className="w-5 h-5" />
                         <p className="text-base lg:text-lg xl:text-lg">Cadastrar empresa</p>
                     </Link>
 
@@ -89,7 +104,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         onClick={() => setIsSidebarOpen(false)}
                         className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/gerir_empresa")}`}
                     >
-                        <span className="text-xl">📋</span>
+                        <ClipboardList className="w-5 h-5" />
                         <p className="text-base lg:text-lg xl:text-lg">Gerir empresa</p>
                     </Link>
 
@@ -98,7 +113,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         onClick={() => setIsSidebarOpen(false)}
                         className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/gerir_payment")}`}
                     >
-                        <span className="text-xl">💳</span>
+                        <CreditCard className="w-5 h-5" />
                         <p className="text-base lg:text-lg xl:text-lg">Gestão de payments</p>
                     </Link>
 
@@ -107,20 +122,20 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         onClick={() => setIsSidebarOpen(false)}
                         className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/documento")}`}
                     >
-                        <span className="text-xl">📃</span>
+                        <FileText className="w-5 h-5" />
                         <p className="text-base lg:text-lg xl:text-lg">Documentos</p>
                     </Link>
 
-                    
+                    {/* Divider */}
                     <div className="mt-8 lg:mt-12 xl:mt-16">
                         <hr className="mx-4 mb-4 lg:mb-3" />
-                        
+
                         <Link
                             href="/adm/configuracao"
                             onClick={() => setIsSidebarOpen(false)}
                             className={`flex items-center gap-3 py-3 lg:py-2 xl:py-1 lg:mx-3 rounded-lg text-lg font-semibold mb-2 lg:mb-1 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/configuracao")}`}
                         >
-                            <span className="text-xl">🔆</span>
+                            <Settings className="w-5 h-5" />
                             <p className="text-base lg:text-lg xl:text-lg">Definições</p>
                         </Link>
 
@@ -129,14 +144,14 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             onClick={() => setIsSidebarOpen(false)}
                             className="flex items-center gap-3 py-3 lg:py-2 xl:py-1 lg:mx-3 rounded-lg text-lg font-semibold cursor-pointer transition-all duration-300 ease-in-out hover:bg-white/5"
                         >
-                            <span className="text-xl">🚪</span>
+                            <LogOut className="w-5 h-5" />
                             <p className="text-base lg:text-lg xl:text-lg">Sair</p>
                         </Link>
                     </div>
                 </div>
             </div>
 
-            
+            {/* Overlay mobile */}
             {isSidebarOpen && (
                 <div 
                     className="lg:hidden fixed inset-0 bg-black/50 z-30"
@@ -144,7 +159,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                 />
             )}
 
-            {/* Main Content */}
+            {/* Main */}
             <div className="flex-1 lg:col-span-9 xl:col-span-10 flex flex-col pt-16 lg:pt-0 overflow-auto">
                 {children}
             </div>
