@@ -1,6 +1,7 @@
 
 import Container from "@/components/container";
 import Sidebar from "@/components/sidebar";
+import { Bell } from "lucide-react";
 
 
 
@@ -13,7 +14,7 @@ export default function Home() {
    
   
     <Sidebar>
-    <Container titulo="Definições " notificacao="🔔" usuario="Mutombo Pedro">
+    <Container titulo="Definições " notificacao={<Bell size={20} />} usuario="Mutombo Pedro">
       <div>bbb</div>
     </Container>
     </Sidebar>

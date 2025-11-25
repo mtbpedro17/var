@@ -1,6 +1,8 @@
+import { ReactNode } from "react";
+
 interface containerProps {
     titulo: string
-    notificacao: string
+    notificacao: ReactNode;
     usuario: string
     children: React.ReactNode;
 }

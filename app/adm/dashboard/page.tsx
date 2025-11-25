@@ -3,6 +3,7 @@ import Caixa2 from "@/components/caixa2";
 import Container from "@/components/container";
 import Sidebar from "@/components/sidebar";
 import Tabela, {TabelaResumo} from "@/components/tabela";
+import { Bell } from "lucide-react";
 
 export default function Home() {
   const caixasData = [
@@ -32,7 +33,7 @@ export default function Home() {
   return (
     <>
       <Sidebar>
-        <Container titulo="Dashboard" notificacao="🔔" usuario="Mutombo Pedro">
+        <Container titulo="Dashboard" notificacao={<Bell size={20} />} usuario="Mutombo Pedro">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 w-full gap-4 md:gap-5 mt-5">
             
