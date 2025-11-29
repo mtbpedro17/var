@@ -44,7 +44,8 @@ export default function Home() {
         <>
             <Sidebar>
                 <Container2 titulo="Gerir pagamento" mpagamento="M.Pagamento" status="Status" periodo="Perido">
-                    <div className="flex gap-3">
+                    {/* Grid responsivo para as caixas */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                         {caixasData.map((item, index) => (
                             <Caixa3 
                                 key={index} 
@@ -56,22 +57,24 @@ export default function Home() {
                         ))}
                     </div>
                     
-                    <div className="text-white md:flex md:items-center md:justify-between w-full py-5">
-                        <h1 className="text-3xl font-bold">Pagamentos</h1>
-                        <div>
-                            <div className="py-3 bg-white/10 text-white h-10 w-[300px] flex items-center gap-3 border border-white rounded-2xl">
-                                <Search size={20} className="ml-2" />
+                    {/* Header responsivo */}
+                    <div className="text-white flex flex-col sm:flex-row sm:items-center sm:justify-between w-full py-4 md:py-5 gap-4 sm:gap-0">
+                        <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">Pagamentos</h1>
+                        <div className="flex justify-center sm:justify-end">
+                            <div className="py-2 sm:py-3 bg-white/10 text-white h-10 w-full sm:w-[280px] md:w-[300px] flex items-center gap-3 border border-white rounded-2xl">
+                                <Search size={18} className="ml-3 sm:ml-2" />
                                 <input 
                                     type="text" 
                                     placeholder="Pesquisar..." 
-                                    className="outline-none placeholder:text-gray-400 h-10 w-full bg-transparent" 
+                                    className="outline-none placeholder:text-gray-400 h-10 w-full bg-transparent text-sm sm:text-base" 
                                 />
                             </div>
                         </div>
                     </div>
                     
-                    <div className="w-full mt-3 md:mt-2 lg:mt-3">
-                        <div className="p-4 bg-[#20254b] rounded-lg overflow-hidden">
+                    {/* Tabela responsiva */}
+                    <div className="w-full mt-3 md:mt-4 lg:mt-5">
+                        <div className="p-3 sm:p-4 bg-[#20254b] rounded-lg overflow-hidden">
                             <div className="overflow-x-auto">
                                 <div className="min-w-[600px] md:min-w-full">
                                     <Tabela3 dados={resumoPlataforma} />
