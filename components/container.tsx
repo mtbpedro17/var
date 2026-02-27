@@ -11,8 +11,8 @@ export default function Container({titulo, notificacao, usuario, children}: cont
     return (
         <div className="w-full h-full min-h-screen overflow-auto">
             
-            <div className="bg-[#12111e] sticky top-0 z-20 p-4 md:p-6 border-b border-gray-700 mt-16 md:mt-0">
-                <div className="max-w-[1200px] mx-auto">
+            <div className=" sticky top-0 z-20 p-4 md:p-6  mt-16 md:mt-0 bg-[#03031b]">
+                <div className="max-w-[1200px] mx-auto ">
                     <div className="text-[#f1f7fc] flex items-center justify-between flex-col sm:flex-row gap-4 sm:gap-0">
                         <p className="font-bold text-xl sm:text-2xl lg:text-3xl text-center sm:text-left">
                             {titulo}
@@ -21,7 +21,7 @@ export default function Container({titulo, notificacao, usuario, children}: cont
                             <p className="text-base md:text-lg lg:text-xl">
                                 {notificacao}
                             </p>
-                            <p className="text-base md:text-lg font-semibold">
+                            <p className="text-base md:text-lg font-light">
                                 {usuario}
                             </p>
                         </div>
