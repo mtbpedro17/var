@@ -87,3 +87,11 @@ export default function dashboard() {
         </div>
     )
 }
+
+
+{/* 
+    git add .
+    git commit -m "descrição das alterações"
+    git push origin main
+    
+    */}
