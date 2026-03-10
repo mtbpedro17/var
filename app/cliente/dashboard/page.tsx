@@ -1,4 +1,7 @@
+
+import AtividadesFuncionario from "@/components/actividadeFun";
 import UltimosAlertas from "@/components/alerta";
+import BalancoMetodosPagamento from "@/components/balanco";
 import Caixa5 from "@/components/caixa5";
 import Container from "@/components/container";
 import Sidebar2 from "@/components/sidbar2";
@@ -57,20 +60,22 @@ export default function dashboard() {
                </div>
 
 
-               <div className="w-[1180px] h-[300px] ml-3 mt-2 flex gap-3">
-                <div className="w-[850px] h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
-
+               <div className="w-295 h-75 ml-3 mt-2 flex gap-3">
+                <div className="w-212.5 h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
+                     <AtividadesFuncionario />
                 </div>
-                <div className="w-[500px] h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
+                <div className="w-125 h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
                         <UltimosAlertas alertas={alertasExemplo} />
                 </div>
 
                </div>
-                <div className="w-[1180px] h-[300px] ml-3 mt-3 flex gap-3">
-                <div className="w-[900px] h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
-
+                <div className="w-295 h-75 ml-3 mt-3 flex gap-3">
+                <div className="w-225 h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
+                    <BalancoMetodosPagamento 
+                   
+                    />
                 </div>
-                <div className="w-[570px] h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
+                <div className="w-142.5 h-full shadow-xl bg-[#040928]  border border-[#050e4c] rounded-2xl">
                     {/* Título */}
                     <h2 className="text-white text-xl font-regular mb-4 mt-4 ml-4">Atividades</h2>
 
