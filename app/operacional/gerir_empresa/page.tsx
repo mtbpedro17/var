@@ -4,7 +4,6 @@ import Caixa5 from "@/components/caixa5";
 import Container from "@/components/container";
 import Sidebar3 from "@/components/sidbar3";
 import Tabela8, { Empresa } from "@/components/tabela8";
-
 import { AlertTriangle, Bell, Building2, MonitorPause, MonitorPlay } from "lucide-react";
 import FiltrosEmpresas from "@/components/filtroEmpresa";
 
@@ -25,7 +24,6 @@ export default function Dashboard() {
     const [filtroDesignacao, setFiltroDesignacao] = useState("");
     const [pesquisa, setPesquisa] = useState("");
 
-    // Filtrar empresas
     const dadosFiltrados = dadosEmpresas.filter(item => {
         const matchStatus = !filtroStatus || item.status === filtroStatus;
         const matchLocal = !filtroLocal || item.local.toLowerCase().includes(filtroLocal.toLowerCase());
@@ -41,27 +39,29 @@ export default function Dashboard() {
     return(
         <div>
             <Sidebar3>
-                <div>
-                    <Container titulo="Gerir empresas" notificacao={<Bell size={20} />} usuario="Sábado 28/02/2026">
-                        <div className="flex justify-around">
-                            <Caixa5 descricao="Total de empresas" num={431} icon={<Building2 size={20} color="green"/>} />
-                            <Caixa5 descricao="Em serviço" num={44} icon={<MonitorPlay size={20} color="green"/>} />
-                            <Caixa5 descricao="Em pausa" num={15} icon={<MonitorPause size={20} color="yellow"/>} />
-                            <Caixa5 descricao="Alertas" num={17} icon={<AlertTriangle size={20} color="red"/>} />
-                        </div>
+                {/* Remove a div desnecessária */}
+                <Container titulo="Gerir empresas" notificacao={<Bell size={20} />} usuario="Sábado 28/02/2026">
+                    {/* Cards superiores */}
+                    <div className="flex justify-around mb-4">
+                        <Caixa5 descricao="Total de empresas" num={431} icon={<Building2 size={20} color="green"/>} />
+                        <Caixa5 descricao="Em serviço" num={44} icon={<MonitorPlay size={20} color="green"/>} />
+                        <Caixa5 descricao="Em pausa" num={15} icon={<MonitorPause size={20} color="yellow"/>} />
+                        <Caixa5 descricao="Alertas" num={17} icon={<AlertTriangle size={20} color="red"/>} />
+                    </div>
 
-                        <FiltrosEmpresas
-                            onStatusChange={setFiltroStatus}
-                            onLocalChange={setFiltroLocal}
-                            onDesignacaoChange={setFiltroDesignacao}
-                            onSearchChange={setPesquisa}
-                        />
-                        
-                        <div className="pb-10 w-295 ml-3 mt-2 flex gap-3 shadow-xl bg-[#040928] border border-[#050e4c] rounded-2xl">
-                            <Tabela8 dados={dadosFiltrados} />                  
-                        </div>
-                    </Container>
-                </div>
+                    {/* Filtros */}
+                    <FiltrosEmpresas
+                        onStatusChange={setFiltroStatus}
+                        onLocalChange={setFiltroLocal}
+                        onDesignacaoChange={setFiltroDesignacao}
+                        onSearchChange={setPesquisa}
+                    />
+                    
+                    {/* Tabela - sem altura fixa para scroll funcionar */}
+                    <div className="mt-4 shadow-xl bg-[#040928] border border-[#050e4c] rounded-2xl overflow-auto">
+                        <Tabela8 dados={dadosFiltrados} />                  
+                    </div>
+                </Container>
             </Sidebar3>  
         </div>
     )
