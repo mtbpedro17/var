@@ -21,32 +21,32 @@ export default function Home() {
             <Sidebar>
                 <Container titulo="Gerir Empresas" notificacao={<Bell size={20} />} usuario="Mutombo Pedro">
                     
-                    {/* Header responsivo */}
-                    <div className="text-white flex flex-col sm:flex-row items-center justify-between w-full py-4 md:py-5 gap-4 sm:gap-0">
+                    {/* Header fixo */}
+                    <div className="text-white flex items-center justify-between w-full py-4">
                         {/* Campo de pesquisa */}
-                        <div className="w-full sm:w-auto">
-                            <div className="py-2 sm:py-3 bg-white/10 text-white h-10 w-full sm:w-[280px] md:w-[300px] flex items-center gap-3 border border-white rounded-2xl">
-                                <Search size={18} className="ml-3 sm:ml-2" />
+                        <div className="w-[300px]">
+                            <div className="bg-[#040928] text-white h-10 flex items-center gap-3 border border-[#050e4c] rounded-lg">
+                                <Search size={18} className="ml-3 text-gray-400" />
                                 <input 
                                     type="text" 
                                     placeholder="Pesquisar..." 
-                                    className="outline-none placeholder:text-gray-400 h-10 w-full bg-transparent text-sm sm:text-base" 
+                                    className="outline-none placeholder:text-gray-500 h-10 w-full bg-transparent text-sm text-white" 
                                 />
                             </div>
                         </div>
 
                         {/* Data */}
-                        <div className="flex items-center justify-center gap-2 py-2 sm:py-3 bg-white/10 text-white h-10 w-full sm:w-[140px] md:w-[150px] border border-white rounded-2xl">
-                            <Calendar size={16} className="sm:size-[18px]" />
-                            <p className="text-sm sm:text-base">25/12/2025</p>
+                        <div className="flex items-center justify-center gap-2 bg-[#040928] text-white h-10 w-[140px] border border-[#050e4c] rounded-lg">
+                            <Calendar size={16} className="text-gray-400" />
+                            <p className="text-sm">25/12/2025</p>
                         </div>
                     </div>
 
-                    {/* Tabela responsiva */}
-                    <div className="w-full mt-6 md:mt-4 lg:mt-5">
-                        <div className="p-3 sm:p-4 bg-[#20254b] rounded-lg overflow-hidden">
+                    {/* Tabela */}
+                    <div className="w-full mt-4">
+                        <div className="p-4 rounded-2xl shadow-xl bg-[#040928] border border-[#050e4c]">
                             <div className="overflow-x-auto">
-                                <div className="min-w-[600px] md:min-w-full">
+                                <div className="min-w-[600px]">
                                     <Tabela2 dados={resumoPlataforma2} />
                                 </div>
                             </div>

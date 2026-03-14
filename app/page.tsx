@@ -8,6 +8,8 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [userName, setUserName] = useState("");
 
   // Função para simular login (depois substituir por API real)
   const handleLogin = (e: React.FormEvent) => {
@@ -15,16 +17,25 @@ export default function Home() {
     
     // SIMULAÇÃO - Depois substituir por chamada à API
     if (email === "adm@kituxi.ao" && password === "admin123") {
-      // Login como ADMIN
-      router.push("/adm/dashboard");
+      setUserName("Administrador");
+      setShowWelcome(true);
+      setTimeout(() => {
+        router.push("/adm/dashboard");
+      }, 2000);
     } 
     else if (email === "cliente@kituxi.ao" && password === "cliente123") {
-      // Login como CLIENTE
-      router.push("/cliente/dashboard");
+      setUserName("Cliente");
+      setShowWelcome(true);
+      setTimeout(() => {
+        router.push("/cliente/dashboard");
+      }, 2000);
     }
     else if (email === "operacional@kituxi.ao" && password === "operacional123") {
-      // Login como OPERACIONAL
-      router.push("/operacional/dashboard");
+      setUserName("Operacional");
+      setShowWelcome(true);
+      setTimeout(() => {
+        router.push("/operacional/dashboard");
+      }, 2000);
     }
     else {
       alert("Credenciais inválidas!");
@@ -42,6 +53,22 @@ export default function Home() {
       {/* Overlay escuro para melhor contraste */}
       <div className="absolute inset-0 bg-black/20"></div>
       
+      {/* Mensagem de boas-vindas */}
+      {showWelcome && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-gradient-to-br from-[#040928] to-[#0e1a3a] border border-[#050e4c] rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl text-center animate-fade-in">
+            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Check size={40} className="text-green-500" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2">Bem-vindo, {userName}!</h2>
+            <p className="text-gray-400 mb-6">Login realizado com sucesso. Redirecionando...</p>
+            <div className="w-full bg-gray-700 h-1 rounded-full overflow-hidden">
+              <div className="bg-blue-600 h-full rounded-full animate-loading-bar"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Conteúdo principal */}
       <div className="relative z-10 w-full h-screen flex justify-center items-center gap-10 p-5">
         

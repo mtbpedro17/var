@@ -1,11 +1,17 @@
 interface BtnProps {
-  botao: string
+  botao: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
-export default function Btn(props: BtnProps) {
+export default function Btn({ botao, onClick, type = "button" }: BtnProps) {
   return (
-    <button className="bg-[#282748] text-white py-3 px-6 h-12 md:h-[60px] w-full max-w-[200px] rounded-xl cursor-pointer hover:bg-[#2f2e55] transition-all duration-300 ease-in-out text-sm md:text-base">
-      {props.botao}
+    <button
+      type={type}
+      onClick={onClick}
+      className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm border border-transparent focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#040928]"
+    >
+      {botao}
     </button>
   );
 }

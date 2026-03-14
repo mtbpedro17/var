@@ -14,8 +14,8 @@ type Props = {
 
 export default function CardDef({ cardTitle, items }: Props) {
   return (
-    <div className="bg-[#282842] rounded-xl p-4 shadow-md">
-      <h2 className="md:text-xl text-white font-bold mb-4">
+    <div className="bg-[#040928] border border-[#050e4c] rounded-2xl p-4 shadow-xl">
+      <h2 className="text-xl font-bold text-white mb-4">
         {cardTitle}
       </h2>
 
@@ -23,10 +23,10 @@ export default function CardDef({ cardTitle, items }: Props) {
         {items.map((item, index) => (
           <div
             key={index}
-            className="flex items-center justify-between"
+            className="flex items-center justify-between border-b border-[#050e4c] pb-3 last:border-0 last:pb-0"
           >
             <div>
-              <p className="text-lg font-medium text-white">
+              <p className="text-base font-medium text-white">
                 {item.title}
               </p>
               <p className="text-sm text-gray-400">
@@ -36,7 +36,7 @@ export default function CardDef({ cardTitle, items }: Props) {
 
             <button
               onClick={item.onAction}
-              className="text-sm bg-[#2b3045] hover:bg-[#353b55] text-white px-4 py-2 rounded-md transition"
+              className="text-sm bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors border border-transparent"
             >
               {item.actionLabel}
             </button>

@@ -1,20 +1,26 @@
 interface CaixaProps {
+  icon?: React.ReactNode;
   num: number;
   descricao: string;
-  cor: string; 
+  bgColor?: string;
 }
 
-export default function caixa3(props:CaixaProps) {
-  return(
-    <div 
-      className={`w-full text-white p-4 md:p-5 lg:p-6 max-w-[400px] h-auto min-h-[100px] md:h-[120px] rounded-lg flex flex-col justify-between gap-2 md:gap-4`} 
-      style={{ backgroundColor: props.cor }}
-    >
-      <p className="font-semibold text-sm md:text-md lg:text-lg leading-tight text-white">
+export default function Caixa(props: CaixaProps) {
+  return (
+    <div className="text-white p-4 w-full max-w-[280px] h-auto rounded-2xl shadow-xl bg-[#040928] border border-[#050e4c]">
+      <div className="flex items-center justify-between">
+        <p className="text-xl font-semibold text-white">
+          {props.num}
+        </p>
+        {props.icon && (
+          <span className="text-gray-400">
+            {props.icon}
+          </span>
+        )}
+      </div>
+      
+      <p className="text-lg font-regular text-gray-300 mt-2 tracking-wide">
         {props.descricao}
-      </p>
-      <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-        {props.num}
       </p>
     </div>
   );

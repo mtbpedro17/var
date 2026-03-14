@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { 
   Home, 
@@ -11,156 +11,138 @@ import {
   FileText,
   Settings, 
   LogOut,
-  Menu,
   X
 } from "lucide-react"
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const router = useRouter()
+    const [showLogoutModal, setShowLogoutModal] = useState(false)
 
-    const isActive = (path: string) =>
-        pathname === path
-            ? "bg-white/20 border-l-4 border-[#12111e] text-white"
-            : "text-[#f1f7fc] tran hover:bg-white/5"
+    const isActive = (path: string) => {
+        return pathname === path 
+            ? "bg-white/5 border-l-4 border-[#0311ab] text-white" 
+            : "text-white hover:bg-white/5"
+    }
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen)
+    const handleLogout = () => {
+        router.push("/")
     }
 
     return (
-        <div className="flex flex-col lg:grid lg:grid-cols-12 h-screen w-screen bg-[#12111e]">
-            
-            {/* Mobile Header */}
-            <div className="lg:hidden bg-[#27283d] p-4 flex items-center justify-between fixed top-0 left-0 right-0 z-50">
-                <div className="flex items-center gap-2">
-                    <div className="py-3 px-3 rounded-full bg-[#12111e]"></div>
-                    <p className="font-bold text-xl">Kituxi Group</p>
-                </div>
-                <button
-                    onClick={toggleSidebar}
-                    className="text-white p-2 rounded-lg hover:bg-white/10 transition-all"
-                >
-                    {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-            </div>
-
+        <div className="flex h-screen bg-[#1a1a27]">
             {/* Sidebar */}
-            <div className={`
-                ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-                lg:translate-x-0
-                fixed lg:relative
-                top-0 lg:top-auto
-                left-0 lg:left-auto
-                w-80 lg:w-72 xl:w-auto
-                h-full lg:h-auto
-                bg-[#27283d] shadow-2xl shadow-gray-900/50 
-                lg:col-span-3 xl:col-span-2
-                flex flex-col text-white
-                transition-transform duration-300 ease-in-out
-                z-40 lg:z-auto
-            `}>
-                
-                {/* Mobile Close Button */}
-                <div className="lg:hidden flex justify-end p-4 pt-20">
-                    <button
-                        onClick={toggleSidebar}
-                        className="text-white p-2 rounded-lg hover:bg-white/10 transition-all"
-                    >
-                        <X size={24} />
-                    </button>
-                </div>
-
-                {/* Desktop Logo */}
-                <div className="hidden lg:flex items-center my-8 mx-4 gap-2">
-                    <div className="py-5 px-5 rounded-full bg-[#12111e]"></div>
-                    <p className="font-bold text-2xl xl:text-3xl">Kituxi Group</p>
+            <div className="w-[260px] h-full bg-[#040927] text-white flex flex-col border-r border-[#333344]">
+                {/* Logo */}
+                <div className="p-6 border-b border-[#333344]">
+                    <h1 className="text-2xl font-bold text-white">Kituxi Group</h1>
                 </div>
 
                 {/* Navigation Links */}
-                <div className="flex-1 px-4 lg:px-0 mt-4 lg:mt-0">
+                <nav className="flex-1 py-6 flex flex-col gap-2">
                     <Link
                         href="/adm/dashboard"
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/dashboard")}`}
+                        className={`flex items-center gap-3 px-6 py-3 text-sm font-medium ml-3 mr-5 rounded-br-xl rounded-tr-xl rounded-bl-xl rounded-tl-xl duration-300 ease-in-out ${isActive("/adm/dashboard")}`}
                     >
-                        <Home size={20} className="ml-2" />
-                        <p className="text-base lg:text-lg xl:text-lg">Dashboard</p>
+                        <Home size={18} />
+                        <span>Dashboard</span>
                     </Link>
 
                     <Link
                         href="/adm/cadastrar_empresa"
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/cadastrar_empresa")}`}
+                        className={`flex items-center gap-3 px-6 py-3 text-sm font-medium ml-3 mr-5 rounded-br-xl rounded-tr-xl rounded-bl-xl rounded-tl-xl duration-300 ease-in-out ${isActive("/adm/cadastrar_empresa")}`}
                     >
-                        <FileEdit size={20} className="ml-2" />
-                        <p className="text-base lg:text-lg xl:text-lg">Cadastrar empresa</p>
+                        <FileEdit size={18} />
+                        <span>Cadastrar empresa</span>
                     </Link>
 
                     <Link
                         href="/adm/gerir_empresa"
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/gerir_empresa")}`}
+                        className={`flex items-center gap-3 px-6 py-3 text-sm font-medium ml-3 mr-5 rounded-br-xl rounded-tr-xl rounded-bl-xl rounded-tl-xl duration-300 ease-in-out ${isActive("/adm/gerir_empresa")}`}
                     >
-                        <ClipboardList size={20} className="ml-2" />
-                        <p className="text-base lg:text-lg xl:text-lg">Gerir empresa</p>
+                        <ClipboardList size={18} />
+                        <span>Gerir empresa</span>
                     </Link>
 
                     <Link
                         href="/adm/gerir_payment"
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/gerir_payment")}`}
+                        className={`flex items-center gap-3 px-6 py-3 text-sm font-medium ml-3 mr-5 rounded-br-xl rounded-tr-xl rounded-bl-xl rounded-tl-xl duration-300 ease-in-out ${isActive("/adm/gerir_payment")}`}
                     >
-                        <CreditCard size={20} className="ml-2" />
-                        <p className="text-base lg:text-lg xl:text-lg">Gestão de payments</p>
+                        <CreditCard size={18} />
+                        <span>Gestão de payments</span>
                     </Link>
 
                     <Link
                         href="/adm/documento"
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-center gap-3 py-4 lg:py-3 xl:py-2 lg:mx-3 rounded-lg text-lg font-semibold mb-2 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/documento")}`}
+                        className={`flex items-center gap-3 px-6 py-3 text-sm font-medium ml-3 mr-5 rounded-br-xl rounded-tr-xl rounded-bl-xl rounded-tl-xl duration-300 ease-in-out ${isActive("/adm/documento")}`}
                     >
-                        <FileText size={20} className="ml-2" />
-                        <p className="text-base lg:text-lg xl:text-lg">Documentos</p>
+                        <FileText size={18} />
+                        <span>Documentos</span>
                     </Link>
 
-                    {/* Bottom Section */}
-                    <div className="mt-8 lg:mt-12 xl:mt-16">
-                        <hr className="mx-4 mb-4 lg:mb-3" />
-                        
-                        <Link
-                            href="/adm/configuracao"
-                            onClick={() => setIsSidebarOpen(false)}
-                            className={`flex items-center gap-3 py-3 lg:py-2 xl:py-1 lg:mx-3 rounded-lg text-lg font-semibold mb-2 lg:mb-1 cursor-pointer transition-all duration-300 ease-in-out ${isActive("/adm/configuracao")}`}
-                        >
-                            <Settings size={20} className="ml-2" />
-                            <p className="text-base lg:text-lg xl:text-lg">Definições</p>
-                        </Link>
+                    <hr className="mx-4 my-2 border-[#333344]" />
 
-                        <Link
-                            href="/"
-                            onClick={() => setIsSidebarOpen(false)}
-                            className="flex items-center  gap-3 py-3 lg:py-2 xl:py-1 lg:mx-3 rounded-lg text-lg font-semibold cursor-pointer transition-all duration-300 ease-in-out hover:bg-white/5"
-                        >
-                            <LogOut size={20} className="ml-2" />
-                            <p className="text-base lg:text-lg xl:text-lg">Sair</p>
-                        </Link>
-                    </div>
+                    <Link
+                        href="/adm/configuracao"
+                        className={`flex items-center gap-3 px-6 py-3 text-sm font-medium ml-3 mr-5 rounded-br-xl rounded-tr-xl rounded-bl-xl rounded-tl-xl duration-300 ease-in-out ${isActive("/adm/configuracao")}`}
+                    >
+                        <Settings size={18} />
+                        <span>Definições</span>
+                    </Link>
+                </nav>
+
+                {/* Logout */}
+                <div className="p-6 border-t border-[#333344]">
+                    <button
+                        onClick={() => setShowLogoutModal(true)}
+                        className="w-full flex items-center gap-3 px-6 py-3 text-sm font-medium bg-white/5 hover:bg-white/10 rounded-xl transition-colors border border-white/10"
+                    >
+                        <LogOut size={18} color="red" />
+                        <span>Sair</span>
+                    </button>
                 </div>
             </div>
 
-            {/* Overlay */}
-            {isSidebarOpen && (
-                <div 
-                    className="lg:hidden fixed inset-0 bg-black/50 z-30"
-                    onClick={() => setIsSidebarOpen(false)}
-                />
-            )}
-
             {/* Main Content */}
-            <div className="flex-1 lg:col-span-9 xl:col-span-10 flex flex-col pt-16 lg:pt-0 overflow-auto">
+            <main className="flex-1 overflow-auto bg-[#03031b] text-white">
                 {children}
-            </div>
+            </main>
+
+            {/* Modal de confirmação de logout */}
+            {showLogoutModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-[#040928] border border-[#050e4c] rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-xl font-bold text-white">Confirmar saída</h2>
+                            <button
+                                onClick={() => setShowLogoutModal(false)}
+                                className="text-gray-400 hover:text-white transition-colors"
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
+                        
+                        <p className="text-gray-300 mb-6">
+                            Tem certeza que deseja sair da sua conta?
+                        </p>
+                        
+                        <div className="flex gap-3">
+                            <button
+                                onClick={handleLogout}
+                                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                            >
+                                Sair
+                            </button>
+                            <button
+                                onClick={() => setShowLogoutModal(false)}
+                                className="flex-1 bg-[#1a2942] hover:bg-[#253657] text-white font-medium py-2 px-4 rounded-lg transition-colors border border-[#050e4c]"
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

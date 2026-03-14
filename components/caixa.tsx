@@ -1,18 +1,21 @@
-interface CaixaProps{
-  num:number;
-  descricao:string;
+interface CaixaProps {
+  num: number;
+  descricao: string;
+  icon?: React.ReactNode; // opcional para manter compatibilidade
 }
 
-export default function Caixa(props:CaixaProps) {
-  
+export default function Caixa({ num, descricao }: CaixaProps) {
   return (
-    <div className="bg-[#1d224a] text-white p-4 md:p-5 lg:p-6 w-full max-w-[400px] h-auto min-h-[100px] md:h-[120px] rounded-lg flex flex-col justify-between gap-2 md:gap-4">
-       <p className="font-semibold text-sm md:text-md lg:text-lg leading-tight">
-         {props.descricao}
-       </p>
-       <p className="text-2xl md:text-3xl lg:text-4xl font-bold">
-         {props.num}
-       </p>
+    <div className="text-white p-3 w-full rounded-xl shadow-xl bg-[#040928] border border-[#050e4c]">
+      <div className="flex items-center justify-between">
+        <p className="text-2xl font-semibold text-white mb-7">
+          {num}
+        </p>
+      </div>
+      
+      <p className="text-2xl font-regular text-gray-300 mt-1 tracking-wide">
+        {descricao}
+      </p>
     </div>
   );
 }

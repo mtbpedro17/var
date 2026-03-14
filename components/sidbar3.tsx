@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { useState } from "react"
 import { 
   LayoutDashboard, 
   Building2,
@@ -10,23 +11,30 @@ import {
   FileText,
   User,
   Settings,
-  LogOut
+  LogOut,
+  X
 } from "lucide-react"
 
 export default function Sidebar3({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
+    const router = useRouter()
+    const [showLogoutModal, setShowLogoutModal] = useState(false)
 
     const isActive = (path: string) => {
         return pathname === path 
             ? "bg-white/5 border-l-4 border-[#0311ab] text-white" 
-            : "text-white hover:bg-white/5 "
+            : "text-white hover:bg-white/5"
+    }
+
+    const handleLogout = () => {
+        router.push("/")
     }
 
     return (
         <div className="flex h-screen bg-[#1a1a27]">
-            {/* Sidebar - Apenas desktop */}
-            <div className="w-[260px] h-full bg-[#040927] text-white flex flex-col">
-                {/* Logo/Title - Kituxi Group */}
+            {/* Sidebar */}
+            <div className="w-[260px] h-full bg-[#040927] text-white flex flex-col border-r border-[#333344]">
+                {/* Logo */}
                 <div className="p-6 border-b border-[#333344]">
                     <h1 className="text-2xl font-bold text-white">Kituxi Group</h1>
                 </div>
@@ -91,14 +99,14 @@ export default function Sidebar3({ children }: { children: React.ReactNode }) {
                 </nav>
 
                 {/* Logout */}
-                <div className="p-6 border-t border-[#333344] flex items-center justify-center">
-                    <Link
-                        href="/"
-                        className="p-4 w-[500px] flex rounded-xl items-center gap-3 text-sm font-medium bg-white/5 text-white transition-colors border border-white/10"
+                <div className="p-6 border-t border-[#333344]">
+                    <button
+                        onClick={() => setShowLogoutModal(true)}
+                        className="w-full flex items-center gap-3 px-6 py-3 text-sm font-medium bg-white/5 hover:bg-white/10 rounded-xl transition-colors border border-white/10"
                     >
                         <LogOut size={18} color="red" />
                         <span>Sair</span>
-                    </Link>
+                    </button>
                 </div>
             </div>
 
@@ -106,6 +114,42 @@ export default function Sidebar3({ children }: { children: React.ReactNode }) {
             <main className="flex-1 overflow-auto bg-[#03031b] text-white">
                 {children}
             </main>
+
+            {/* Modal de confirmação de logout */}
+            {showLogoutModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-[#040928] border border-[#050e4c] rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
+                        <div className="flex items-center justify-between mb-4">
+                            <h2 className="text-xl font-bold text-white">Confirmar saída</h2>
+                            <button
+                                onClick={() => setShowLogoutModal(false)}
+                                className="text-gray-400 hover:text-white transition-colors"
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
+                        
+                        <p className="text-gray-300 mb-6">
+                            Tem certeza que deseja sair da sua conta?
+                        </p>
+                        
+                        <div className="flex gap-3">
+                            <button
+                                onClick={handleLogout}
+                                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                            >
+                                Sair
+                            </button>
+                            <button
+                                onClick={() => setShowLogoutModal(false)}
+                                className="flex-1 bg-[#1a2942] hover:bg-[#253657] text-white font-medium py-2 px-4 rounded-lg transition-colors border border-[#050e4c]"
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

@@ -9,26 +9,19 @@ export default function Home() {
     <>
       <Sidebar>
         <Container titulo="Formulário de Cadastro" notificacao={<Bell size={20} />} usuario="Mutombo Pedro">
-          <div className="py-4 bg-[#1e1f31] rounded-lg">
-            {/* Grid responsivo corrigido */}
-            <div className="py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {/* Primeira linha - 3 inputs */}
+          <div className="py-4 bg-white/5 rounded-lg px-4">
+            {/* Layout em coluna única */}
+            <div className="flex flex-col gap-4 py-4">
               <CInput label="Nome da empresa" type="text" placeholder="Digite o nome da Empresa" />
               <CInput label="NIF da empresa" type="text" placeholder="Digite o NIF da empresa" />
               <CInput label="Endereço da empresa" type="text" placeholder="Digite endereço da Empresa" />
-              
-              {/* Segunda linha - 2 inputs ocupando espaço proporcional */}
-              <div className="md:col-span-2 lg:col-span-1">
-                <CInput label="Objecto social da empresa" type="text" placeholder="Digite o objecto social da Empresa" />
-              </div>
-              <div className="md:col-span-2 lg:col-span-1">
-                <CInput label="Contacto do responsável" type="text" placeholder="Digite o nome do responsável..." />
-              </div>
+              <CInput label="Objecto social da empresa" type="text" placeholder="Digite o objecto social da Empresa" />
+              <CInput label="Contacto do responsável" type="text" placeholder="Digite o nome do responsável..." />
             </div>
             
-            {/* Botão responsivo */}
-            <div className="flex justify-center md:justify-end px-4 md:px-12 mt-8 md:mt-6 pb-4">
-              <Btn botao="Finalizar Cadastro"/>
+            {/* Botão alinhado à direita */}
+            <div className="flex justify-end mt-6 pb-4">
+              <Btn botao="Finalizar Cadastro" />
             </div>
           </div>
         </Container>

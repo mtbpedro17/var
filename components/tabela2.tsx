@@ -1,81 +1,54 @@
-export interface TabelaResumo2{
-   id:number
-   designacaoSocial:string
-   nif:string
-   contacto:string
-   objectoSocial:string
-   accoes:string
+import { Link2 } from 'lucide-react';
+
+export interface TabelaResumo2 {
+   id: number;
+   designacaoSocial: string;
+   nif: string;
+   contacto: string;
+   objectoSocial: string;
+   accoes: string;
 }
 
 interface TabelaResumoProps {
   dados: TabelaResumo2[];
 }
 
-export default function Tabela2({dados}: TabelaResumoProps) {
-   
-  
-    return(
-      <div className="w-full">
-        {/* Desktop Table */}
-        <div className="hidden md:block">
-          <table className="w-full text-left text-white border-separate border-spacing-0">
-            <thead className="bg-white/20 sticky top-0 z-10 backdrop-blur-sm">
-              <tr className="text-gray-200 border-b border-gray-700">
-                <th className="py-3 px-4 text-sm lg:text-base">N°</th>
-                <th className="py-3 px-4 text-sm lg:text-base">Designação Social</th>
-                <th className="py-3 px-4 text-sm lg:text-base">NIF</th>
-                <th className="py-3 px-4 text-sm lg:text-base">Contacto</th>
-                <th className="py-3 px-4 text-sm lg:text-base">Objecto Social</th>
-                <th className="py-3 px-4 text-sm lg:text-base">Acções</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dados.map((item, index) => (
-                <tr key={index} className="border-b border-gray-700 hover:bg-white/5 transition-colors duration-200">
-                  <td className="py-3 px-4 text-sm lg:text-base">{item.id}</td>
-                  <td className="py-3 px-4 text-sm lg:text-base">{item.designacaoSocial}</td>
-                  <td className="py-3 px-4 font-semibold text-sm lg:text-base">{item.nif}</td>
-                  <td className="py-3 px-4 text-sm lg:text-base">{item.contacto}</td>
-                  <td className="py-3 px-4 text-sm lg:text-base">{item.objectoSocial}</td>
-                  <td className="py-3 px-4 text-sm lg:text-base">{item.accoes}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Mobile Cards */}
-        <div className="md:hidden space-y-3">
+export default function Tabela2({ dados }: TabelaResumoProps) {
+  return (
+    <div className="w-full rounded-2xl">
+      <table className="w-full text-left text-white border-collapse rounded-2xl">
+        <thead className="sticky top-0 z-10 backdrop-blur-sm">
+          <tr className="text-gray-200 border-b-2 border-[#050e4c]">
+            <th className="py-3 px-4 text-lg font-light">N°</th>
+            <th className="py-3 px-4 text-lg font-light">Designação Social</th>
+            <th className="py-3 px-4 text-lg font-light">NIF</th>
+            <th className="py-3 px-4 text-lg font-light">Contacto</th>
+            <th className="py-3 px-4 text-lg font-light">Objecto Social</th>
+            <th className="py-3 px-4 text-lg font-light text-center">Acções</th>
+          </tr>
+        </thead>
+        <tbody>
           {dados.map((item, index) => (
-            <div key={index} className="bg-white/5 rounded-lg p-4 border-b border-gray-700">
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="space-y-2">
-                  <div>
-                    <p className="text-gray-400 text-xs">Empresa</p>
-                    <p className="text-white font-medium">{item.id}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-xs">Licenças vendidas</p>
-                    <p className="text-white">{item.designacaoSocial}</p>
-                  </div>
+            <tr key={index} className="border-b border-[#050e4c] hover:bg-white/10 transition-colors duration-200">
+              <td className="py-3 px-4 text-sm font-light">{item.id}</td>
+              <td className="py-3 px-4 text-sm font-light">{item.designacaoSocial}</td>
+              <td className="py-3 px-4 text-sm font-light">{item.nif}</td>
+              <td className="py-3 px-4 text-sm font-light">{item.contacto}</td>
+              <td className="py-3 px-4 text-sm font-light">{item.objectoSocial}</td>
+              <td className="py-3 px-4 text-center">
+                <div className="flex items-center justify-center gap-3">
+                  <button className="text-gray-400 hover:text-white transition-colors">
+                    <Link2 size={18} />
+                  </button>
+                  <button className="text-gray-400 hover:text-white transition-colors">
+                    <Link2 size={18} />
+                  </button>
                 </div>
-                <div className="space-y-2">
-                  <div>
-                    <p className="text-gray-400 text-xs">Status</p>
-                    <p className="text-white">{item.nif}</p>
-                  </div>
-                  <div>
-                    <p className="text-gray-400 text-xs">Total Pago</p>
-                    <p className="text-white">{item.contacto}</p>
-                    <p className="text-white">{item.objectoSocial}</p>
-
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
+              </td>
+            </tr>
           ))}
-        </div>
-      </div>
-    )
+        </tbody>
+      </table>
+    </div>
+  );
 }

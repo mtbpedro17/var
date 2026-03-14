@@ -1,43 +1,56 @@
-interface containerProps2 {
-    titulo?: string
+import { ReactNode } from "react";
+
+interface Container2Props {
+    titulo: string;
+    notificacao?: ReactNode;
+    usuario?: string;
     children: React.ReactNode;
-    mpagamento?:string
-    status?:string
-    periodo?:string
+    filtros?: ReactNode; // Para os selects
 }
 
-export default function Container2({titulo,  mpagamento, status, periodo, children}: containerProps2) {
+export default function Container2({ titulo, notificacao, usuario, children, filtros }: Container2Props) {
     return (
         <div className="w-full h-full min-h-screen overflow-auto">
-            
-            <div className="bg-[#12111e] sticky top-0 z-20 p-4 md:p-6 border-b border-gray-700 mt-16 md:mt-0">
+            {/* Cabeçalho fixo */}
+            <div className="sticky top-0 z-20 p-6 ">
                 <div className="max-w-[1200px] mx-auto">
-                    <div className="text-[#f1f7fc] flex items-center justify-between flex-col sm:flex-row gap-4 sm:gap-0">
-                        <p className="font-bold text-xl sm:text-2xl lg:text-3xl text-center sm:text-left">
+                    <div className="text-white flex items-center justify-between">
+                        <p className="font-bold text-3xl">
                             {titulo}
                         </p>
-                        <div className="flex items-center gap-4 md:gap-6 lg:gap-8">
-                           
-                            <p className="text-base md:text-sm font-light px-5 py-2 border border-gray-400 rounded-lg bg-white/10">
-                                {mpagamento}
-                            </p>
-                            <p className="text-base md:text-sm font-light px-5 py-2 border border-gray-400 rounded-lg bg-white/10">
-                                {status}
-                            </p>
-                            <p className="text-base md:text-sm font-light px-5 py-2 border border-gray-400 rounded-lg bg-white/10">
-                                {periodo}
-                            </p>
+                        
+                        <div className="flex items-center gap-6">
+                            {/* Filtros (selects) */}
+                            {filtros && (
+                                <div className="flex items-center gap-3">
+                                    {filtros}
+                                </div>
+                            )}
                             
+                            {/* Notificação e usuário */}
+                            <div className="flex items-center gap-4">
+                                {notificacao && (
+                                    <span className="text-gray-400 hover:text-white transition-colors cursor-pointer">
+                                        {notificacao}
+                                    </span>
+                                )}
+                                {usuario && (
+                                    <p className="text-base font-light text-gray-300">
+                                        {usuario}
+                                    </p>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
+            {/* Conteúdo */}
+            <div className="flex-1 p-6">
                 <div className="max-w-[1200px] mx-auto w-full">
                     {children}
                 </div>
             </div>
         </div>
-    )
+    );
 }

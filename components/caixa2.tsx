@@ -1,20 +1,17 @@
 interface CaixaProps {
   num: number;
   descricao: string;
-  cor: string; 
 }
 
-export default function caixa2(props:CaixaProps) {
-  return(
-    <div 
-      className={`w-full max-w-[340px] h-auto min-h-20 md:h-[40%] rounded-lg p-3 md:p-4 flex flex-col justify-between gap-2 md:gap-3`} 
-      style={{ backgroundColor: props.cor }}
-    >
-      <p className="font-semibold text-xs md:text-sm lg:text-base leading-tight text-white">
-        {props.descricao}
+export default function Caixa2({ num, descricao }: CaixaProps) {
+  return (
+    <div className="text-white p-4 w-full rounded-2xl shadow-xl bg-[#040928] border border-[#050e4c]">
+      <p className="text-xl font-semibold text-white">
+        {num}
       </p>
-      <p className="text-xl md:text-2xl lg:text-3xl font-bold text-white">
-        {props.num}
+      
+      <p className="text-sm font-regular text-gray-300 mt-1 tracking-wide">
+        {descricao}
       </p>
     </div>
   );
