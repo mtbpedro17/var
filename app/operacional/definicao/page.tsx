@@ -1,4 +1,5 @@
 import Container from "@/components/container";
+import PreferenciasNotificacao from "@/components/def";
 import Sidebar3 from "@/components/sidbar3";
 import { Bell } from "lucide-react";
 
@@ -10,9 +11,7 @@ export default function dashboard() {
           <Sidebar3>
             <div>
                 <Container titulo="Definições" notificacao={<Bell size={20} />} usuario="Sábado 28/02/2026">
-                    <div>
-                        
-                    </div>
+                    <PreferenciasNotificacao />
                 </Container>
             </div>
             </Sidebar3>  

@@ -159,3 +159,12 @@ html {
 * {
   transition: all 0.3s ease;
 }
+/* Ocultar scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE e Edge */
+  scrollbar-width: none;  /* Firefox */
+}
