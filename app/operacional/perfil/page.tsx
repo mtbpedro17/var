@@ -52,7 +52,7 @@ export default function Dashboard() {
                             <Seguranca 
                                 doisFatoresAtivo={doisFatores}
                                 onToggleDoisFatores={setDoisFatores}
-                                onAlterarSenha={() => console.log('Alterar senha')}
+                                onAlterarSenha={() => console.log('Altere senha')}
                             />
                         </div>
                         <div className="flex">
