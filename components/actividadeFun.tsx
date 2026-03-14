@@ -21,7 +21,7 @@ export default function AtividadesFuncionario({
     { dia: "Sex", acessos: 0, acoes: 9, tentativas: 0 },
     { dia: "Sáb", acessos: 0, acoes: 0, tentativas: 3 },
     { dia: "Dom", acessos: 0, acoes: 5, tentativas: 0 }
-  ] ;
+  ] 
 }: AtividadesFuncionarioProps) {
 
   // Dados para os cards inferiores
