@@ -32,9 +32,12 @@ export default function Sidebar2({ children }: { children: React.ReactNode }) {
         <div className="flex h-screen bg-[#1a1a27]">
             {/* Sidebar */}
             <div className="w-[260px] h-full bg-[#040927] text-white flex flex-col border-r border-[#333344]">
-                {/* Logo */}
-                <div className="p-6 border-b border-[#333344]">
-                    <h1 className="text-2xl font-bold text-white">Kituxi Group</h1>
+                
+                <div className="p-6 border-b border-[#333344] flex items-center  gap-2">
+                    <div className="bg-black w-[50px] h-[50px] rounded-full flex items-center justify-center">
+                        <img src="/logo.png" alt="Logo" width={30} />
+                    </div>
+                    <h1 className="text-2xl font-bold text-white mt-1.5">Kituxi Tech</h1>
                 </div>
 
                 {/* Navigation Links */}
