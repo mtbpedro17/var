@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { Plus, Minus, ChevronDown, Check } from 'lucide-react';
+import { Plus, Minus, ChevronDown, Check, Smartphone, Building, CreditCard } from 'lucide-react';
 
 const planos = [
   {
@@ -49,8 +49,8 @@ export default function PagarLicenca({ onVoltar }: PagarLicencaProps) {
 
   return (
     <div className="w-full">
-      {/* Subtítulo + botão voltar */}
-      <div className="flex items-center justify-between mb-5">
+      {/* Subtítulo abaixo do breadcrumb (título da página) */}
+      <div className="flex items-center justify-between mb-2">
         <p className="text-gray-400 text-sm">Escolhe o plano adequado para sua empresa</p>
         <button
           onClick={onVoltar}
@@ -79,7 +79,7 @@ export default function PagarLicenca({ onVoltar }: PagarLicencaProps) {
                       ${ativo ? 'border-blue-500' : 'border-[#050e4c] hover:border-blue-500/50'}`}
                   >
                     {plano.recomendado && (
-                      <span className="absolute top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-semibold px-3 py-0.5 rounded-full">
+                      <span className="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-semibold px-3 py-0.5 rounded-full">
                         Recomendado
                       </span>
                     )}
@@ -145,7 +145,9 @@ export default function PagarLicenca({ onVoltar }: PagarLicencaProps) {
 
           <div className="bg-[#1a2a80] rounded-xl px-3 py-2.5 flex items-center gap-3">
             <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">
-              M
+              {metodoPagamento === 'Multicaixa Express' && <Smartphone size={16} />}
+              {metodoPagamento === 'Transferência IBAN' && <CreditCard size={16} />}
+              {metodoPagamento === 'Depósito' && <Building size={16} />}
             </div>
             <span className="text-white text-sm font-medium">{metodoPagamento}</span>
           </div>
@@ -174,10 +176,26 @@ export default function PagarLicenca({ onVoltar }: PagarLicencaProps) {
             )}
           </div>
 
+          {/* Dados do beneficiário conforme método */}
           <div className="flex flex-col gap-1.5 text-xs">
-            <p className="text-gray-300"><span className="text-gray-500">Entidade:</span> 00948</p>
-            <p className="text-gray-300"><span className="text-gray-500">Referência:</span> 2674558567</p>
-            <p className="text-gray-300"><span className="text-gray-500">Beneficiário:</span> Continental Tecno IA</p>
+            {metodoPagamento === 'Depósito' && (
+              <>
+                <p className="text-gray-300"><span className="text-gray-500">Nº da conta:</span> 27798754895945</p>
+                <p className="text-gray-300"><span className="text-gray-500">Beneficiário:</span> Continental Tecno IA</p>
+              </>
+            )}
+            {metodoPagamento === 'Transferência IBAN' && (
+              <>
+                <p className="text-gray-300"><span className="text-gray-500">IBAN:</span> 0040.0000.7777.7777.7777.7</p>
+                <p className="text-gray-300"><span className="text-gray-500">Beneficiário:</span> Continental Tecno IA</p>
+              </>
+            )}
+            {metodoPagamento === 'Multicaixa Express' && (
+              <>
+                <p className="text-gray-300"><span className="text-gray-500">Nº Express:</span> 955 555 500</p>
+                <p className="text-gray-300"><span className="text-gray-500">Beneficiário:</span> Continental Tecno IA</p>
+              </>
+            )}
           </div>
 
           <button className="w-full bg-green-600 hover:bg-green-700 text-white rounded-xl py-3 text-sm font-semibold transition-colors mt-2">

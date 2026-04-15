@@ -57,8 +57,8 @@ export default function Dashboard() {
                     <div className="flex justify-around mb-4">
                         <Caixa5 descricao="Equipamentos monitorados" num={157} icon={<Layers size={20} color="green"/>} />
                         <Caixa5 descricao="Funcionários" num={12} icon={<Users2 size={20} color="blue"/>} />
-                        <Caixa5 descricao="Dias restantes" num={15} icon={<Calendar size={20} color="yellow"/>} />
-                        <Caixa5 descricao="Equipamentos monitorados" num={157} icon={<Bell size={20} color="pink"/>} />
+                        <Caixa5 descricao="Dias restantes da Licença" num={15} icon={<Calendar size={20} color="yellow"/>} />
+                        <Caixa5 descricao="Alertas" num={5} icon={<Bell size={20} color="pink"/>} />
                     </div>
 
                     {/* Primeira linha de cards - com alturas automáticas */}

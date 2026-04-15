@@ -7,6 +7,25 @@ interface containerProps {
     children: React.ReactNode;
 }
 
+function renderTitulo(titulo: string) {
+    // Se tiver " > " é breadcrumb com 2 partes com cores diferentes
+    if (titulo.includes(" > ")) {
+        const partes = titulo.split(" > ");
+        return (
+            <p className="font-bold text-xl sm:text-2xl lg:text-3xl text-center sm:text-left">
+                <span style={{ color: "#DEDEDE" }}>{partes[0]}</span>
+                <span className="text-white"> &gt; </span>
+                <span className="text-white">{partes.slice(1).join(" > ")}</span>
+            </p>
+        );
+    }
+    return (
+        <p className="font-bold text-xl sm:text-2xl lg:text-3xl text-center sm:text-left">
+            {titulo}
+        </p>
+    );
+}
+
 export default function Container({titulo, notificacao, usuario, children}: containerProps) {
     return (
         <div className="w-full h-full min-h-screen overflow-auto">
@@ -14,9 +33,7 @@ export default function Container({titulo, notificacao, usuario, children}: cont
             <div className=" sticky top-0 z-20 p-4 md:p-6  mt-16 md:mt-0 bg-[#03031b]">
                 <div className="max-w-[1200px] mx-auto ">
                     <div className="text-[#f1f7fc] flex items-center justify-between flex-col sm:flex-row gap-4 sm:gap-0">
-                        <p className="font-bold text-xl sm:text-2xl lg:text-3xl text-center sm:text-left">
-                            {titulo}
-                        </p>
+                        {renderTitulo(titulo)}
                         <div className="flex items-center gap-4 md:gap-6 lg:gap-8">
                             <p className="text-base md:text-lg lg:text-xl">
                                 {notificacao}

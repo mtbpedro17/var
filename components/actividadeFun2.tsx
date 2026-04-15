@@ -55,19 +55,10 @@ export default function AtividadesFuncionario2({
   return (
     <div className="w-full h-full p-4 rounded-2xl ">
       {/* Título */}
-      <h2 className="text-white text-base font-semibold mb-3">Atividades dos Funcionário (Últimos 7 dias)</h2>
+      <h2 className="text-white text-base font-semibold mb-3">Atividades dos Funcionários (Últimos 7 dias)</h2>
       
-      {/* Dias da semana */}
-      <div className="grid grid-cols-7 gap-1 mb-4">
-        {["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"].map((dia, index) => (
-          <div key={index} className="text-center">
-            <span className="text-gray-400 text-xs font-medium">{dia}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* GRÁFICO DE BARRAS - AJUSTADO */}
-      <div className="h-24 w-full mb-6">
+      {/* GRÁFICO DE BARRAS - dias da semana mostrados apenas no XAxis do gráfico */}
+      <div className="h-36 w-full mb-4">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={dados} margin={{ top: 5, right: 5, left: -15, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />

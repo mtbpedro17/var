@@ -26,7 +26,7 @@ export default function AtividadesFuncionario({
 
   // Dados para os cards inferiores
   const cardsInfo = [
-    { dia: "Seg", numero: 84, tipo: "acessos", descricao: "Acessos", subDescricao: "Feto por funcionários", cor: "text-blue-400", bg: "bg-blue-500/20" },
+    { dia: "Seg", numero: 84, tipo: "acessos", descricao: "Acessos", subDescricao: "Feito por funcionários", cor: "text-blue-400", bg: "bg-blue-500/20" },
     { dia: "Ter", numero: 10, tipo: "acoes", descricao: "", subDescricao: "" },
     { dia: "Qua", numero: 0, tipo: "vazio", descricao: "", subDescricao: "" },
     { dia: "Qui", numero: 15, tipo: "acoes", descricao: "Ações Realizadas", subDescricao: "Ações manipuladas", cor: "text-green-400", bg: "bg-green-500/20" },

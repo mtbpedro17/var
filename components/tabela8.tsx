@@ -1,4 +1,4 @@
-import { Link2, Circle, CirclePause, Power } from 'lucide-react';
+import { Pencil, Trash2, ToggleLeft, ToggleRight, Circle, CirclePause, Power } from 'lucide-react';
 
 export interface Empresa {
     empresa: string
@@ -53,18 +53,44 @@ export default function Tabela8({dados}: Tabela8Props) {
                 <td className="py-3 px-4 text-sm font-light">{item.designacao}</td>
                 <td className="py-3 px-4 text-sm font-light">{item.local}</td>
                 <td className="py-3 px-4 text-sm font-light">{item.funcionarios}</td>
-                <td className={`py-3 px-4 font-light text-sm flex items-center gap-1.5 ${statusColor(item.status)}`}>
-                  {statusIcon(item.status)}
-                  {item.status}
+                <td className={`py-3 px-4 font-light text-sm ${statusColor(item.status)}`}>
+                  <div className="flex items-center gap-1.5">
+                    {statusIcon(item.status)}
+                    {item.status}
+                  </div>
                 </td>
                 <td className="py-3 px-4 text-sm font-light text-red-400">{item.alertas}</td>
                 <td className="py-3 px-4 text-center">
                   <div className="flex items-center justify-center gap-3">
-                    <button className="text-gray-400 hover:text-white transition-colors">
-                      <Link2 size={18} />
+                    {/* Editar */}
+                    <button
+                      title="Editar"
+                      className="text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                      <Pencil size={16} />
                     </button>
-                    <button className="text-gray-400 hover:text-white transition-colors">
-                      <Link2 size={18} />
+                    {/* Ativar / Desativar */}
+                    {item.status === "Ativo" ? (
+                      <button
+                        title="Desativar"
+                        className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                      >
+                        <ToggleRight size={20} />
+                      </button>
+                    ) : (
+                      <button
+                        title="Ativar"
+                        className="text-green-400 hover:text-green-300 transition-colors"
+                      >
+                        <ToggleLeft size={20} />
+                      </button>
+                    )}
+                    {/* Eliminar */}
+                    <button
+                      title="Eliminar"
+                      className="text-red-400 hover:text-red-300 transition-colors"
+                    >
+                      <Trash2 size={16} />
                     </button>
                   </div>
                 </td>

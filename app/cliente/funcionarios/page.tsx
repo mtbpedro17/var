@@ -43,7 +43,7 @@ export default function Dashboard() {
                         <Caixa5 descricao="Funcionários" num={157} icon={<Users2 size={20} color="white"/>} />
                         <Caixa5 descricao="Funcionários activos" num={12} icon={<UserCheck size={20} color="green"/>} />
                         <Caixa5 descricao="Funcionários inactivos" num={15} icon={<UserX size={20} color="red"/>} />
-                        <Caixa5 descricao="Funcionários inactivos" num={15} icon={<UserX size={20} color="red"/>} />
+                        <Caixa5 descricao="Pendentes" num={3} icon={<Bell size={20} color="yellow"/>} />
                     </div>
                     <FiltrosFuncionarios
                                 onStatusChange={setFiltroStatus}

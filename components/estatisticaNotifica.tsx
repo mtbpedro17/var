@@ -13,7 +13,6 @@ interface EstatisticasAlertasProps {
 
 export default function EstatisticasAlertas({ 
   dados = [
-    { cor: "bg-blue-500", label: "Total", valor: 56 },
     { cor: "bg-red-500", label: "Críticos", valor: 6 },
     { cor: "bg-orange-500", label: "Alertas", valor: 29 },
     { cor: "bg-gray-400", label: "Informativas", valor: 40 }
@@ -21,11 +20,11 @@ export default function EstatisticasAlertas({
   total = 56
 }: EstatisticasAlertasProps) {
   return (
-    <div className="w-full  bg-[#040928] rounded-2xl p-4 border border-[#050e4c]">
-      {/* Título */}
-      <h2 className="text-white text-xl font-semibold mb-4">Estadísticas</h2>
+    <div className="w-full bg-[#040928] rounded-2xl p-4 border border-[#050e4c]">
+      {/* Título corrigido: Estatísticas */}
+      <h2 className="text-white text-xl font-semibold mb-4">Estatísticas</h2>
       
-      {/* Lista de estatísticas */}
+      {/* Lista de estatísticas — sem o item "Total" duplicado */}
       <div className="space-y-3">
         {dados.map((item, index) => (
           <div key={index} className="flex items-center justify-between">
@@ -38,11 +37,11 @@ export default function EstatisticasAlertas({
         ))}
       </div>
 
-      {/* Total (caso queira destacar) */}
+      {/* Único total de alertas — cor azul conforme relatório */}
       <div className="mt-4 pt-3 border-t border-gray-700">
         <div className="flex items-center justify-between">
-          <span className="text-gray-400 text-xs">Total de alertas</span>
-          <span className="text-white text-lg font-bold">{total}</span>
+          <span className="text-blue-400 text-xs font-medium">Total de alertas</span>
+          <span className="text-blue-400 text-lg font-bold">{total}</span>
         </div>
       </div>
     </div>
