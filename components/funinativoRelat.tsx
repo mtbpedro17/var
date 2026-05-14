@@ -1,28 +1,25 @@
 'use client'
+
 import { UserX, Building2, MapPin, Calendar, Trash2, MoreHorizontal, Eye, UserMinus } from 'lucide-react';
 
 interface FuncionarioInativo {
-  funcionario: string;
-  empresaCargo: string;
-  local: string;
+  id?: string;
+  nome: string;
+  empresa?: string;
+  cargo?: string;
+  local?: string;
   status: "Inativo" | "Suspenso";
-  desde: string;
+  criadoEm: string;
 }
 
 interface FuncionariosInativosProps {
-  dados?: FuncionarioInativo[];
+  dados: FuncionarioInativo[];
+  loading?: boolean;
 }
 
-export default function FuncionariosInativos({ 
-  dados = [
-    { funcionario: "Aldair Da Cruz", empresaCargo: "Kituxi Tech", local: "Luanda", status: "Inativo", desde: "07/12/2025 10:48" },
-    { funcionario: "Beatriz Silva", empresaCargo: "Deloitte", local: "Luanda", status: "Suspenso", desde: "07/12/2025 10:48" },
-    { funcionario: "Aldair Da Cruz", empresaCargo: "Kituxi Tech", local: "Luanda", status: "Inativo", desde: "07/12/2025 10:48" },
-    { funcionario: "Aldair Da Cruz", empresaCargo: "Kituxi Tech", local: "Luanda", status: "Inativo", desde: "07/12/2025 10:48" },
-    { funcionario: "Aldair Da Cruz", empresaCargo: "Kituxi Tech", local: "Luanda", status: "Inativo", desde: "07/12/2025 10:48" },
-    { funcionario: "Aldair Da Cruz", empresaCargo: "Kituxi Tech", local: "Luanda", status: "Inativo", desde: "07/12/2025 10:48" },
-    { funcionario: "Aldair Da Cruz", empresaCargo: "Kituxi Tech", local: "Luanda", status: "Inativo", desde: "07/12/2025 10:48" }
-  ] 
+export default function FuncionariosInativos({
+  dados = [],
+  loading = false
 }: FuncionariosInativosProps) {
 
   const getStatusColor = (status: string) => {
@@ -42,57 +39,64 @@ export default function FuncionariosInativos({
   };
 
   return (
-    <div className="w-full h-[300px] bg-[#040928] border border-[#050e4c] rounded-2xl p-4 flex flex-col">
-      {/* Título (fixo) */}
-      <div className="flex items-center gap-2 mb-4 flex-shrink-0">
+    <div className="w-full h-75 bg-[#040928] border border-[#050e4c] rounded-2xl p-4 flex flex-col">
+
+      {/* HEADER */}
+      <div className="flex items-center gap-2 mb-4 shrink-0">
         <UserX size={18} className="text-gray-400" />
-        <h2 className="text-white text-lg font-semibold">Funcionários Inativos/suspensos</h2>
+        <h2 className="text-white text-lg font-semibold">
+          Funcionários Inativos/Suspensos
+        </h2>
       </div>
 
-      {/* Cabeçalho da tabela (fixo) */}
-      <div className="grid grid-cols-6 gap-2 mb-2 px-2 flex-shrink-0">
-        <span className="text-gray-500 text-xs font-medium col-span-1">Funcionário</span>
-        <span className="text-gray-500 text-xs font-medium col-span-1">Empresa/cargo</span>
-        <span className="text-gray-500 text-xs font-medium col-span-1">Local</span>
-        <span className="text-gray-500 text-xs font-medium col-span-1">Status</span>
-        <span className="text-gray-500 text-xs font-medium col-span-1">Desde</span>
-        <span className="text-gray-500 text-xs font-medium col-span-1 text-center">Ações</span>
+      {/* HEADER TABELA */}
+      <div className="grid grid-cols-6 gap-2 mb-2 px-2 shrink-0">
+        <span className="text-gray-500 text-xs">Funcionário</span>
+        <span className="text-gray-500 text-xs">Empresa/Cargo</span>
+        <span className="text-gray-500 text-xs">Local</span>
+        <span className="text-gray-500 text-xs">Status</span>
+        <span className="text-gray-500 text-xs">Desde</span>
+        <span className="text-gray-500 text-xs text-center">Ações</span>
       </div>
 
-      {/* Área de scroll para as linhas */}
-      <div 
-        className="flex-1 overflow-y-auto min-h-0"
-        style={{ 
-          scrollbarWidth: 'none', 
-          msOverflowStyle: 'none',
-        }}
-      >
-        <style jsx>{`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
+      {/* BODY */}
+      <div className="flex-1 overflow-y-auto">
+
+        {loading && (
+          <div className="text-gray-400 text-sm p-4">
+            Carregando funcionários...
+          </div>
+        )}
+
+        {!loading && dados.length === 0 && (
+          <div className="text-gray-500 text-sm p-4">
+            Nenhum funcionário encontrado
+          </div>
+        )}
+
         <div className="space-y-1 pr-1">
           {dados.map((item, index) => (
-            <div key={index} className="grid grid-cols-6 gap-2 px-2 py-2 hover:bg-white/5 rounded-lg transition-colors">
-              {/* Funcionário */}
-              <div className="col-span-1 flex items-center gap-1">
-                <span className="text-white text-xs truncate">{item.funcionario}</span>
+            <div
+              key={item.id ?? index}
+              className="grid grid-cols-6 gap-2 px-2 py-2 hover:bg-white/5 rounded-lg"
+            >
+
+              {/* nome */}
+              <div className="col-span-1 text-white text-xs truncate">
+                {item.nome}
               </div>
 
-              {/* Empresa/cargo */}
-              <div className="col-span-1 flex items-center gap-1">
-                <Building2 size={10} className="text-gray-500 flex-shrink-0" />
-                <span className="text-gray-300 text-xs truncate">{item.empresaCargo}</span>
+              {/* empresa/cargo */}
+              <div className="col-span-1 text-gray-300 text-xs truncate">
+                {item.empresa} - {item.cargo}
               </div>
 
-              {/* Local */}
-              <div className="col-span-1 flex items-center gap-1">
-                <MapPin size={10} className="text-gray-500 flex-shrink-0" />
-                <span className="text-gray-300 text-xs">{item.local}</span>
+              {/* local */}
+              <div className="col-span-1 text-gray-300 text-xs">
+                {item.local}
               </div>
 
-              {/* Status */}
+              {/* status */}
               <div className="col-span-1">
                 <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full ${getStatusColor(item.status)}`}>
                   {getStatusIcon(item.status)}
@@ -100,37 +104,36 @@ export default function FuncionariosInativos({
                 </div>
               </div>
 
-              {/* Desde */}
-              <div className="col-span-1 flex items-center gap-1">
-                <Calendar size={10} className="text-gray-500 flex-shrink-0" />
-                <span className="text-gray-400 text-xs">{item.desde}</span>
+              {/* data */}
+              <div className="col-span-1 text-gray-400 text-xs">
+                {new Date(item.criadoEm).toLocaleString()}
               </div>
 
-              {/* Ações */}
-              <div className="col-span-1 flex items-center justify-center gap-2">
-                <button className="text-gray-500 hover:text-red-400 transition-colors">
-                  <Trash2 size={14} />
-                </button>
-                <button className="text-gray-500 hover:text-blue-400 transition-colors">
+              {/* ações */}
+              <div className="col-span-1 flex justify-center gap-2">
+                <button className="text-gray-500 hover:text-blue-400">
                   <Eye size={14} />
                 </button>
-                <button className="text-gray-500 hover:text-gray-300 transition-colors">
+                <button className="text-gray-500 hover:text-red-400">
+                  <Trash2 size={14} />
+                </button>
+                <button className="text-gray-500 hover:text-gray-300">
                   <MoreHorizontal size={14} />
                 </button>
               </div>
+
             </div>
           ))}
         </div>
       </div>
 
-      {/* Rodapé (fixo) */}
-      <div className="mt-3 pt-2 border-t border-gray-800 flex justify-between items-center flex-shrink-0">
-        <span className="text-gray-500 text-xs">Total: {dados.length} funcionários</span>
-        <button className="text-blue-400 hover:text-blue-300 text-xs flex items-center gap-1">
-          Ver todos
-          <MoreHorizontal size={12} />
-        </button>
+      {/* FOOTER */}
+      <div className="mt-2 pt-2 border-t border-gray-800 flex justify-between">
+        <span className="text-gray-500 text-xs">
+          Total: {dados.length}
+        </span>
       </div>
+
     </div>
   );
 }

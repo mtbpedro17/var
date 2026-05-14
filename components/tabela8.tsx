@@ -38,8 +38,8 @@ export default function Tabela8({dados}: Tabela8Props) {
           <thead className="sticky top-0 z-10 backdrop-blur-sm">
             <tr className="text-gray-200 border-b-2 border-[#050e4c]">
               <th className="py-3 px-4 text-lg font-light">Empresa</th>
-              <th className="py-3 px-4 text-lg font-light">Designação social</th>
-              <th className="py-3 px-4 text-lg font-light">Local</th>
+              <th className="py-3 px-4 text-lg font-light">Email</th>
+              <th className="py-3 px-4 text-lg font-light">NIF</th>
               <th className="py-3 px-4 text-lg font-light">Funcionários</th>
               <th className="py-3 px-4 text-lg font-light">Status</th>
               <th className="py-3 px-4 text-lg font-light">Alertas</th>
