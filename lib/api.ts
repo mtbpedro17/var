@@ -14,6 +14,8 @@ export const api = axios.create({
   withCredentials: true,
 })
 
+console.log("API URL:", process.env.NEXT_PUBLIC_API_URL)
+
 // ── Request interceptor ──────────────────────────────────────
 // Anexa o token JWT no header antes de cada requisição
 api.interceptors.request.use((config) => {
