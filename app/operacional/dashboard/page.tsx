@@ -48,7 +48,7 @@ function agruparLogsPorDia(logs: any[]): DadosGrafico[] {
         logData.getMonth()    === data.getMonth() &&
         logData.getFullYear() === data.getFullYear()
       ) {
-        if (log.acao?.includes('POST /api/v1/alertas'))   diario.alertas++
+        if (log.acao?.includes('POST http://var-continental-ia.onrender.com/api/v1alertas'))   diario.alertas++
         //if (log.acao?.includes('POST /api/v1/auth/login')) diario.logins++
         else if (log.acao?.startsWith('POST') || log.acao?.startsWith('PATCH')) diario.acoes++
       }
