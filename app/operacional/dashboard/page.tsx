@@ -7,23 +7,35 @@ import Caixa5 from "@/components/caixa5"
 import Container from "@/components/container"
 import EquipeOnline from "@/components/equipaOline"
 import Sidebar3 from "@/components/sidbar3"
-import { AlertCircle, AlertTriangle, Bell, MapPin, UserCheck } from "lucide-react"
-import { alertaService, funcionarioService, equipamentoService, logService } from "@/services"
+import {
+  AlertCircle,
+  AlertTriangle,
+  Bell,
+  MapPin,
+  UserCheck,
+} from "lucide-react"
+
+import {
+  alertaService,
+  funcionarioService,
+  equipamentoService,
+  logService,
+} from "@/services"
 
 // ── Tipos locais ─────────────────────────────────────────────
 
 interface DadosGrafico {
-  dia:     string
+  dia: string
   alertas: number
-  acoes:   number
-  logins:  number
+  acoes: number
+  logins: number
 }
 
 interface ResumoCards {
   funcionariosAtivos: number
-  locaisMonitorados:  number
-  falhas:             number
-  alertas:            number
+  locaisMonitorados: number
+  falhas: number
+  alertas: number
 }
 
 // ── Helpers ───────────────────────────────────────────────────
@@ -32,26 +44,54 @@ const DIAS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
 
 // Agrupa logs dos últimos 7 dias por dia da semana
 function agruparLogsPorDia(logs: any[]): DadosGrafico[] {
-  const hoje   = new Date()
+  const hoje = new Date()
   const semana: DadosGrafico[] = []
 
   for (let i = 6; i >= 0; i--) {
     const data = new Date(hoje)
     data.setDate(hoje.getDate() - i)
+
     const diaNome = DIAS[data.getDay()]
-    const diario  = { dia: diaNome, alertas: 0, acoes: 0, logins: 0 }
+
+    const diario: DadosGrafico = {
+      dia: diaNome,
+      alertas: 0,
+      acoes: 0,
+      logins: 0,
+    }
 
     logs.forEach((log) => {
       const logData = new Date(log.criadoEm)
-      if (
-        logData.getDate()     === data.getDate()  &&
-        logData.getMonth()    === data.getMonth() &&
+
+      const mesmoDia =
+        logData.getDate() === data.getDate() &&
+        logData.getMonth() === data.getMonth() &&
         logData.getFullYear() === data.getFullYear()
+
+      if (!mesmoDia) return
+
+      // Contagem de alertas
+      if (
+        log.acao?.includes('/alertas') &&
+        log.acao?.startsWith('POST')
       ) {
-        if (log.acao?.includes('POST http://var-continental-ia.onrender.com/api/v1alertas'))   diario.alertas++
-        //if (log.acao?.includes('POST /api/v1/auth/login')) diario.logins++
-        else if (log.acao?.startsWith('POST') || log.acao?.startsWith('PATCH')) diario.acoes++
+        diario.alertas++
       }
+
+      // Contagem de ações
+      else if (
+        log.acao?.startsWith('POST') ||
+        log.acao?.startsWith('PATCH')
+      ) {
+        diario.acoes++
+      }
+
+      // Contagem de logins (descomentar se existir)
+      /*
+      if (log.acao?.includes('/auth/login')) {
+        diario.logins++
+      }
+      */
     })
 
     semana.push(diario)
@@ -63,51 +103,82 @@ function agruparLogsPorDia(logs: any[]): DadosGrafico[] {
 // ── Componente ───────────────────────────────────────────────
 
 export default function Dashboard() {
-  const [cards,       setCards]       = useState<ResumoCards>({ funcionariosAtivos: 0, locaisMonitorados: 0, falhas: 0, alertas: 0 })
-  const [dadosGrafico, setDadosGrafico] = useState<DadosGrafico[] | undefined>(undefined)
-  const [carregando,  setCarregando]  = useState(true)
+  const [cards, setCards] = useState<ResumoCards>({
+    funcionariosAtivos: 0,
+    locaisMonitorados: 0,
+    falhas: 0,
+    alertas: 0,
+  })
+
+  const [dadosGrafico, setDadosGrafico] = useState<DadosGrafico[]>([])
+  const [carregando, setCarregando] = useState(true)
 
   useEffect(() => {
     async function carregarDados() {
       try {
-        // Todas as chamadas em paralelo para não bloquear umas às outras
-        const [resumoAlertas, funcionarios, equipamentos, logs] = await Promise.allSettled([
+        // Todas as chamadas em paralelo
+        const [
+          resumoAlertas,
+          funcionarios,
+          equipamentos,
+          logs,
+        ] = await Promise.allSettled([
           alertaService.resumo(),
-          funcionarioService.listar({ status: 'Ativo', limit: 1 }),
-          equipamentoService.listar({ limit: 1 }),
-          logService.listar({ limit: 200 }),
+          funcionarioService.listar({
+            status: 'Ativo',
+            limit: 1,
+          }),
+          equipamentoService.listar({
+            limit: 1,
+          }),
+          logService.listar({
+            limit: 200,
+          }),
         ])
 
-        // ── Cards superiores ──────────────────────────────────
+        // ── Dados dos cards ─────────────────────────────────
+        console.log(funcionarios);
+        
+        const totalAlertas =
+          resumoAlertas.status === 'fulfilled'
+            ? resumoAlertas.value.data.data.total
+            : 0
 
-        const totalAlertas    = resumoAlertas.status   === 'fulfilled' ? resumoAlertas.value.data.data.total    : 0
-        const totalFalhas     = resumoAlertas.status   === 'fulfilled' ? resumoAlertas.value.data.data.porNivel?.critico ?? 0 : 0
+        const totalFalhas =
+          resumoAlertas.status === 'fulfilled'
+            ? resumoAlertas.value.data.data.porNivel?.critico ?? 0
+            : 0
+
         const totalFuncionarios =
-  funcionarios.status === 'fulfilled'
-    ? (funcionarios.value.data as any).data.meta.total
-    : 0
-    const totalLocais =
-    equipamentos.status === 'fulfilled'
-      ? equipamentos.value.data.meta?.total
-      : 0
+          funcionarios.status === 'fulfilled'
+            ? funcionarios.value.data.meta.total
+            : 0
+
+        const totalLocais =
+          equipamentos.status === 'fulfilled'
+            ? equipamentos.value.data.meta.total
+            : 0
+
         setCards({
           funcionariosAtivos: totalFuncionarios,
-          locaisMonitorados:  totalLocais,
-          falhas:             totalFalhas,
-          alertas:            totalAlertas,
+          locaisMonitorados: totalLocais,
+          falhas: totalFalhas,
+          alertas: totalAlertas,
         })
 
-        // ── Gráfico de actividades ────────────────────────────
-        //console.log(funcionarios)
+        // ── Dados do gráfico ───────────────────────────────
+
         if (logs.status === 'fulfilled') {
           console.log('LOGS DA API:', logs.value.data)
-          const logsData = Array.isArray(logs.value.data.data)
+
+          const logsData = Array.isArray(
+            logs.value.data.data
+          )
             ? logs.value.data.data
             : []
-        
+
           setDadosGrafico(agruparLogsPorDia(logsData))
         }
-
       } catch (erro) {
         console.error('Erro ao carregar dashboard:', erro)
       } finally {
@@ -121,7 +192,11 @@ export default function Dashboard() {
   return (
     <div>
       <Sidebar3>
-        <Container titulo="Dashboard" notificacao={<Bell size={20} />} usuario="Sábado 28/02/2026">
+        <Container
+          titulo="Dashboard"
+          notificacao={<Bell size={20} />}
+          usuario={new Date().toLocaleDateString('pt-PT')}
+        >
 
           {/* Cards superiores */}
           <div className="flex justify-around mb-4">
@@ -130,16 +205,19 @@ export default function Dashboard() {
               num={carregando ? 0 : cards.funcionariosAtivos}
               icon={<UserCheck size={20} color="green" />}
             />
+
             <Caixa5
               descricao="Locais monitorados"
               num={carregando ? 0 : cards.locaisMonitorados}
               icon={<MapPin size={20} color="green" />}
             />
+
             <Caixa5
               descricao="Falhas"
               num={carregando ? 0 : cards.falhas}
               icon={<AlertCircle size={20} color="yellow" />}
             />
+
             <Caixa5
               descricao="Alertas"
               num={carregando ? 0 : cards.alertas}
@@ -150,9 +228,9 @@ export default function Dashboard() {
           {/* Primeira linha */}
           <div className="flex gap-3 mb-3">
             <div className="flex-1 h-87.5 shadow-xl bg-[#040928] border border-[#050e4c] rounded-2xl">
-              {/* dadosGrafico = undefined enquanto carrega → componente usa os seus próprios mocks */}
               <AtividadesFuncionario2 dados={dadosGrafico} />
             </div>
+
             <div className="w-125 shadow-xl bg-[#040928] border border-[#050e4c] rounded-2xl">
               <EquipeOnline />
             </div>
