@@ -30,7 +30,7 @@ export default function DetalheEmpresaPage() {
         ])
 
         const empresaData = empresaRes.data.data
-        const equipamentosData = equipamentosRes.data.data.data ?? []
+        const equipamentosData = equipamentosRes.data.data ?? []
 
         setEmpresa(empresaData)
         setEquipamentos(equipamentosData)

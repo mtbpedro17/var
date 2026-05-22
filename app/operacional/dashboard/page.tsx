@@ -98,16 +98,17 @@ export default function Dashboard() {
             ? resumoAlertas.value.data.data.porNivel?.critico ?? 0
             : 0
 
+            console.log(funcionarios);
         // FUNCIONÁRIOS (CORRIGIDO)
         const totalFuncionarios =
           funcionarios.status === "fulfilled"
-            ? funcionarios.value.data.data.meta.total
+            ? funcionarios.value.data.meta.total ?? 0
             : 0
 
         // EQUIPAMENTOS (CORRIGIDO defensivo)
         const totalLocais =
           equipamentos.status === "fulfilled"
-            ? equipamentos.value.data.data?.meta?.total ?? 0
+            ? equipamentos.value.data.meta.total ?? 0
             : 0
 
         setCards({
@@ -134,6 +135,7 @@ export default function Dashboard() {
 
     carregarDados()
   }, [])
+
 
   return (
     <div>
