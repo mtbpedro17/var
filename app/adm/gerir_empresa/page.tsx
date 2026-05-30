@@ -78,6 +78,7 @@ export default function Home() {
       await api.patch(`/empresas/${empresaSel.id}`, formEditar)
       setModalEditar(false)
       carregarEmpresas()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setErroEditar(err?.response?.data?.message ?? 'Erro ao actualizar.')
     } finally {
@@ -103,6 +104,7 @@ export default function Home() {
       setModalAccao(false)
       setEmpresaSel(null)
       carregarEmpresas()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       alert(err?.response?.data?.message ?? 'Erro ao realizar acção.')
       setModalAccao(false)
@@ -208,6 +210,7 @@ export default function Home() {
                 <div key={campo} className="flex flex-col gap-1">
                   <label className="text-sm text-gray-400">{label}</label>
                   <input
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     value={(formEditar as any)[campo]}
                     onChange={(e) => setFormEditar((prev) => ({ ...prev, [campo]: e.target.value }))}
                     className="outline-none py-2.5 px-4 border border-[#050e4c] rounded-lg bg-[#03031b] text-white text-sm focus:border-blue-500"
