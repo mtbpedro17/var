@@ -20,12 +20,14 @@ export interface ApiResponse<T> {
 
 export interface PaginatedResponse<T> {
   success: boolean
-  data:    T[]
-  meta: {
-    total:      number
-    page:       number
-    limit:      number
-    totalPages: number
+  data: {
+    data: T[]
+    meta: {
+      total:      number
+      page:       number
+      limit:      number
+      totalPages: number
+    }
   }
 }
 

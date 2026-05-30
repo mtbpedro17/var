@@ -27,6 +27,7 @@ interface ResumoCards {
 
 const DIAS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function agruparLogsPorDia(logs: any[]): DadosGrafico[] {
   const hoje = new Date()
   const semana: DadosGrafico[] = []
@@ -90,25 +91,28 @@ export default function Dashboard() {
         // ALERTAS
         const totalAlertas =
           resumoAlertas.status === "fulfilled"
-            ? resumoAlertas.value.data.data.total
+            ? resumoAlertas.value?.data?.data?.total ?? 0
             : 0
 
         const totalFalhas =
           resumoAlertas.status === "fulfilled"
-            ? resumoAlertas.value.data.data.porNivel?.critico ?? 0
+            ? resumoAlertas.value?.data?.data?.porNivel?.critico ?? 0
             : 0
 
-            console.log(funcionarios);
-        // FUNCIONÁRIOS (CORRIGIDO)
+        // FUNCIONÁRIOS
         const totalFuncionarios =
           funcionarios.status === "fulfilled"
-            ? funcionarios.value.data.meta.total ?? 0
+            ? (Array.isArray(funcionarios.value?.data?.data)
+                ? funcionarios.value.data.data.length
+                : 0)
             : 0
 
-        // EQUIPAMENTOS (CORRIGIDO defensivo)
+        // EQUIPAMENTOS
         const totalLocais =
           equipamentos.status === "fulfilled"
-            ? equipamentos.value.data.meta.total ?? 0
+            ? (Array.isArray(equipamentos.value?.data?.data)
+                ? equipamentos.value.data.data.length
+                : 0)
             : 0
 
         setCards({
@@ -120,7 +124,7 @@ export default function Dashboard() {
 
         // LOGS
         if (logs.status === "fulfilled") {
-          const logsData = Array.isArray(logs.value.data.data)
+          const logsData = Array.isArray(logs.value?.data?.data)
             ? logs.value.data.data
             : []
 
@@ -135,7 +139,6 @@ export default function Dashboard() {
 
     carregarDados()
   }, [])
-
 
   return (
     <div>

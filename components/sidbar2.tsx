@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Cookies from 'js-cookie'
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 import { 
@@ -15,7 +16,7 @@ import {
 
 export default function Sidebar2({ children }: { children: React.ReactNode }) {
     const pathname = usePathname()
-    const router = useRouter()
+    
     const [showLogoutModal, setShowLogoutModal] = useState(false)
 
     const isActive = (path: string) => {
@@ -24,9 +25,14 @@ export default function Sidebar2({ children }: { children: React.ReactNode }) {
             : "text-white hover:bg-white/5"
     }
 
-    const handleLogout = () => {
-        router.push("/")
-    }
+   
+
+const handleLogout = () => {
+    Cookies.remove('token')
+    Cookies.remove('usuario')
+    setShowLogoutModal(false)
+    window.location.href = "/"
+}
 
     return (
         <div className="flex h-screen bg-[#1a1a27]">
